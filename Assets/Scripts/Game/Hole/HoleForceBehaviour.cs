@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Game.GameProcess;
 using Game.Hole.Interface;
 using Game.TrashSceneObjects.Interfaces;
 using UniRx;

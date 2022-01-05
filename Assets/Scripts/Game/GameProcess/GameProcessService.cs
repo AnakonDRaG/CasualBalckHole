@@ -126,11 +126,6 @@ namespace Game.GameProcess
         }
 
 
-        public void StartWarningAnimation()
-        {
-            throw new NotImplementedException();
-        }
-
         public void OnCollectScoreTrash()
         {
             if (_gameProcessState.GamePaused) return;
@@ -151,47 +146,33 @@ namespace Game.GameProcess
         public IEnumerator OnGameWin()
         {
             _audioService.PlayNotification2D(_audioGameContext.WinSound);
-            GamePause(true);
+            GameProcessPause(true);
             _touchActions.IsActive = false;
+            
+              yield return new WaitForSeconds(_audioGameContext.WinSound.length / 2);
             _uiGameService.WinWindow.Show();
-
-
-            yield break;
+            SetPause(true);
+            
         }
 
         public IEnumerator OnGameLose()
         {
             _audioService.PlayNotification2D(_audioGameContext.LoseSound);
             _touchActions.IsActive = false;
-
-
-            yield return new WaitForSeconds(2);
-
-            GamePause(true);
-
+            GameProcessPause(true);
+            
+            yield return new WaitForSeconds(_audioGameContext.LoseSound.length / 2);
+            
             _uiGameService.LoseWindow.Show();
-
-            yield break;
+            SetPause(true);
         }
+        
 
-        public void SetPause(bool status)
+        public void SetPause(bool status) =>  Time.timeScale = status ? 0 : 1;
+        public void GameProcessPause(bool paused)
         {
-            _gameProcessState.GamePaused = status;
-            _touchActions.IsActive = !status;
-            Time.timeScale = status ? 0 : 1;
+            _gameProcessState.GamePaused = paused;
+            _touchActions.IsActive = !paused;
         }
-
-        public void RestartGame()
-        {
-            SetPause(false);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-
-        public void BackToMenu()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void GamePause(bool paused) => Time.timeScale = paused ? 1 : 0;
     }
 }

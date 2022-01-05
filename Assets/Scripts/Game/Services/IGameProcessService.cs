@@ -10,11 +10,7 @@ namespace Game.Services
         void OnCollectToxicTrash(); 
         IEnumerator OnGameWin();
         IEnumerator OnGameLose();
-
+        void GameProcessPause(bool paused);
         void SetPause(bool status);
-
-        void RestartGame();
-        void BackToMenu();
-        void GamePause(bool paused);
     }
 }

@@ -1237,7 +1237,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6122910842358457938, guid: ca9ebfde87de59847b0e24f6482b1461, type: 3}
       propertyPath: maxTimePerLevel
-      value: 6
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 6122910842358457938, guid: ca9ebfde87de59847b0e24f6482b1461, type: 3}
       propertyPath: trashObjectsPatent
