@@ -1,23 +1,26 @@
-using System;
 using UniRx;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class TouchActions
+namespace GameControl
 {
-    private Vector2 _touchPosition;
-
-    public Vector2 TouchPosition { get; private set; }
-
-    public TouchActions()
+    public class TouchActions
     {
-        TouchPosition = new Vector2();
+   
+        private Vector2 _touchPosition { get; set; }
 
-        Observable.EveryUpdate()
-            .Subscribe(_ =>
-            {
-                TouchPosition = Input.touchCount > 0 ? Input.GetTouch(0).deltaPosition : Vector2.zero;
-                
-            });
+        public Vector2 TouchPosition => _touchPosition;
+        public bool IsActive { get; set; } = true;
+
+        public TouchActions()
+        {
+            _touchPosition = new Vector2();
+
+            Observable.EveryUpdate()
+                .Where(_ => IsActive)
+                .Subscribe(_ =>
+                {
+                    _touchPosition = Input.touchCount > 0 ? Input.GetTouch(0).deltaPosition : Vector2.zero;
+                });
+        }
     }
 }

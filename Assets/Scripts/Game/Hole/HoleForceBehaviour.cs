@@ -5,12 +5,17 @@ using Game.TrashSceneObjects.Interfaces;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
+using Zenject;
 
 namespace Game.Hole
 {
     public class HoleForceBehaviour : MonoBehaviour, IHoleForce
     {
         private List<ITrash> _detectedTrash;
+        private GameProcessState _gameProcessState;
+
+        [Inject]
+        private void Construct(GameProcessState gameProcessState) => (_gameProcessState) = (gameProcessState);
 
         public void Awake()
         {
@@ -30,7 +35,7 @@ namespace Game.Hole
                 .Subscribe(trashObj => _detectedTrash.Remove(trashObj));
 
             this.UpdateAsObservable()
-                .Where(_ => _detectedTrash.Count > 0)
+                .Where(_ => _detectedTrash.Count > 0 && !_gameProcessState.GamePaused)
                 .Subscribe(_ => ForceDetectedTrash());
         }
 

@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4637406757973608448}
+  - component: {fileID: 7475866431227182286}
+  - component: {fileID: 3116950908777337692}
   m_Layer: 0
   m_Name: GameModelsSetting
   m_TagString: Untagged
@@ -30,3 +32,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7475866431227182286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6674017544984866112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8d928fae9db482fa2c8575d93964488, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0.5
+  _magnitude: 0.5
+--- !u!114 &3116950908777337692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6674017544984866112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45066e762c914d5b992f977497be34e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _UIWinNotificationWindow: {fileID: 0}
+  _UILoseNotificationWindow: {fileID: 0}
+  _scoreLine: {fileID: 0}
+  _currentScoreText: {fileID: 0}
+  _totalScoreText: {fileID: 0}
+  _timerText: {fileID: 0}

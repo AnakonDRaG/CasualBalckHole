@@ -3,6 +3,7 @@ Shader "Custom/Gradient Color" {
          [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
          _ColorTop ("Top Color", Color) = (1,1,1,1)
          _ColorBot ("Bot Color", Color) = (1,1,1,1)
+         
      }
 
      SubShader {

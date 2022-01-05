@@ -1,38 +1,43 @@
-using Game.TrashObjectsLogic.Model;
+using Game.TrashObjectsLogic.Context;
 using Game.TrashSceneObjects.Interfaces;
 using UnityEngine;
+
 
 namespace Game.TrashObjectsLogic
 {
     public abstract class BaseTrashGameObject : MonoBehaviour, ITrash
     {
-        private TrashObjectModel _model;
+        protected TrashObjectContext _context;
 
-        private void Awake()
+        public virtual void Initialize()
         {
-            _model = new TrashObjectModel(gameObject.GetComponent<Rigidbody>(), transform.localScale);
+            _context = new TrashObjectContext()
+            {
+                Rigidbody = GetComponent<Rigidbody>(),
+                OriginalLocalScale = transform.localScale,
+            };
         }
 
         public void ForceTo(Vector3 position)
         {
             if (transform.position.y < position.y)
             {
-                _model.Rigidbody.AddForce(position - new Vector3(0,10,0));
+                _context.Rigidbody.AddForce(position - new Vector3(0, 10, 0));
                 return;
             }
 
             var distanceMath = Vector3.Distance(transform.position, position);
 
-            _model.Rigidbody.AddForce((position - _model.Rigidbody.position));
-            
+            _context.Rigidbody.AddForce(position - _context.Rigidbody.position);
+
 
             transform.localScale = new Vector3(
-                Mathf.Clamp((distanceMath), _model.MinScale, _model.OriginalLocalScale.x),
-                Mathf.Clamp((distanceMath), _model.MinScale, _model.OriginalLocalScale.y),
-                Mathf.Clamp((distanceMath), _model.MinScale, _model.OriginalLocalScale.z));
+                Mathf.Clamp(Mathf.Pow(distanceMath, 2), _context.MinScale, _context.OriginalLocalScale.x),
+                Mathf.Clamp(Mathf.Pow(distanceMath, 2), _context.MinScale, _context.OriginalLocalScale.y),
+                Mathf.Clamp(Mathf.Pow(distanceMath, 2), _context.MinScale, _context.OriginalLocalScale.z));
         }
 
-        public void DestroyGameObject()
+        public virtual void DestroyGameObject()
         {
             gameObject.SetActive(false);
         }
