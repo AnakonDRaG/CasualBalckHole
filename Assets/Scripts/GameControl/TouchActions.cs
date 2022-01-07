@@ -19,6 +19,7 @@ namespace GameControl
                 .Where(_ => IsActive)
                 .Subscribe(_ =>
                 {
+                    Debug.Log("qwe");
                     _touchPosition = Input.touchCount > 0 ? Input.GetTouch(0).deltaPosition : Vector2.zero;
                 });
         }
