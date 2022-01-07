@@ -8,7 +8,7 @@ namespace CasualHole.Audio
     public class AudioService : BaseBehaviourService, IAudioService
     {
         private AudioSource _music;
-        private AudioSource _Notification;
+        private AudioSource _notification;
         private AudioSource _audioSource;
 
         public override void Initialize()
@@ -16,7 +16,7 @@ namespace CasualHole.Audio
             base.Initialize();
 
             _music = gameObject.AddComponent<AudioSource>();
-            _Notification = gameObject.AddComponent<AudioSource>();
+            _notification = gameObject.AddComponent<AudioSource>();
             _audioSource = gameObject.AddComponent<AudioSource>();
 
             _music.volume = 0.1f;
@@ -24,30 +24,38 @@ namespace CasualHole.Audio
 
         public void PlaySound2D(AudioClip audioClip)
         {
-            //if(_audioSource.isPlaying) _audioSource.Stop();
-            
             _audioSource.PlayOneShot(audioClip);
+        }
+
+        public void SetSoundVolume(float volume)
+        {
+            _audioSource.volume = volume;
         }
 
         public void PlayMusic2D(AudioClip music, bool loop = false)
         {
-            if(_music.isPlaying) _music.Stop();
-            
+            if (_music.isPlaying) _music.Stop();
+
             _music.loop = loop;
             _music.PlayOneShot(music);
         }
 
-        public void PlayNotification2D(AudioClip notificationSound)
+        public void SetMusicVolume(float volume)
         {
-            if(_Notification.isPlaying) _Notification.Stop();
-            
-            _Notification.clip = notificationSound;
-            _Notification.Play();
+            _music.volume = volume;
         }
 
-        public void PlaySound3D(Vector3 position, AudioClip audioClip)
+        public void PlayNotification2D(AudioClip notificationSound)
         {
-            throw new NotImplementedException();
+            if (_notification.isPlaying) _notification.Stop();
+
+            _notification.clip = notificationSound;
+            _notification.Play();
+        }
+
+        public void SetNotificationVolume(float volume)
+        {
+            _notification.volume = volume;
         }
     }
 }

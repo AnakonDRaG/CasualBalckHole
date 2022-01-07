@@ -176,6 +176,7 @@ GameObject:
   - component: {fileID: 5014709574091343495}
   - component: {fileID: 4435211729888490480}
   - component: {fileID: 412841803040073}
+  - component: {fileID: 6318490229641153638}
   m_Layer: 5
   m_Name: SettingWindow
   m_TagString: Untagged
@@ -279,6 +280,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &6318490229641153638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8807804022854680926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ac89cae75c243e2a3701d9033134926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _musicValueSlider: {fileID: 8700647767746229451}
+  _soundValueSlider: {fileID: 140046554232961642}
 --- !u!1001 &268386649966161054
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -389,7 +404,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7731163995196262220, guid: f5caf5e701307bc49ba0ad852cae84e6, type: 3}
       propertyPath: m_Name
-      value: Grid (2)
+      value: Grid
       objectReference: {fileID: 0}
     - target: {fileID: 8290491712368544220, guid: f5caf5e701307bc49ba0ad852cae84e6, type: 3}
       propertyPath: m_Pivot.x
@@ -547,7 +562,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4931589880004893844, guid: d1187b7c576b9e8438a6b63d93cdafa3, type: 3}
       propertyPath: m_Name
-      value: Slider
+      value: SoundSlider
       objectReference: {fileID: 0}
     - target: {fileID: 5100806482010672346, guid: d1187b7c576b9e8438a6b63d93cdafa3, type: 3}
       propertyPath: m_AnchorMax.x
@@ -647,6 +662,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1187b7c576b9e8438a6b63d93cdafa3, type: 3}
+--- !u!114 &140046554232961642 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 642190191228691446, guid: d1187b7c576b9e8438a6b63d93cdafa3, type: 3}
+  m_PrefabInstance: {fileID: 655290284887742876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b6a89c7ba194175b439807e1fcb9f80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1200104299210026627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -656,7 +682,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7731163995196262220, guid: f5caf5e701307bc49ba0ad852cae84e6, type: 3}
       propertyPath: m_Name
-      value: Grid (3)
+      value: Grid
       objectReference: {fileID: 0}
     - target: {fileID: 8290491712368544220, guid: f5caf5e701307bc49ba0ad852cae84e6, type: 3}
       propertyPath: m_Pivot.x
@@ -1021,7 +1047,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4931589880004893844, guid: d1187b7c576b9e8438a6b63d93cdafa3, type: 3}
       propertyPath: m_Name
-      value: Slider
+      value: MusicSlider
       objectReference: {fileID: 0}
     - target: {fileID: 5100806482010672346, guid: d1187b7c576b9e8438a6b63d93cdafa3, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1121,6 +1147,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1187b7c576b9e8438a6b63d93cdafa3, type: 3}
+--- !u!114 &8700647767746229451 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 642190191228691446, guid: d1187b7c576b9e8438a6b63d93cdafa3, type: 3}
+  m_PrefabInstance: {fileID: 8095059356604831549}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b6a89c7ba194175b439807e1fcb9f80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8888281238494967790
 PrefabInstance:
   m_ObjectHideFlags: 0

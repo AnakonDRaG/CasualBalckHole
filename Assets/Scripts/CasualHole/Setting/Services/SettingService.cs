@@ -1,26 +1,26 @@
-using CasualHole.Data;
+using CasualHole.Audio.Services;
 using CasualHole.Services;
+using CasualHole.Setting.Context;
 using CasualHole.Setting.Interface;
+using UnityEngine;
+using Zenject;
 
 namespace CasualHole.Setting.Services
 {
     public class SettingService : BaseBehaviourService, ISettingService
     {
-        private const string _playerPrefsPath = "CasualHole/SavableValue/";
+        [Inject] private IAudioService _audioService;
 
-        private SavableValue<float> _musicValue;
-        private SavableValue<float> _soundValue;
+        [SerializeField] private SettingContext _context;
+
 
         public override void Initialize()
         {
             base.Initialize();
-            
-            _musicValue = new SavableValue<float>($"{_playerPrefsPath}/Audio/Music", 0.5f);
-            _soundValue = new SavableValue<float>($"{_playerPrefsPath}/Audio/Sound", 0.5f);
+            _context.Initialize();
+
+            _context.MusicValue.OnChange += _audioService.SetMusicVolume;
+            _context.SoundValue.OnChange += _audioService.SetSoundVolume;
         }
-        
-        
-        
-        
     }
 }

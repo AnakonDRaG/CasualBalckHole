@@ -3,19 +3,22 @@ using UnityEngine;
 
 namespace CasualHole.Game.UI
 {
-    public class WindowBehaviour: MonoBehaviour, IWindow
+    public class WindowBehaviour : MonoBehaviour, IWindow
     {
-        
-        
+        private bool _isShow = false;
+
         public void Hide()
         {
-            gameObject.SetActive(false);
+            _isShow = false;
+            gameObject.SetActive(_isShow);
         }
 
         public void Show()
         {
-            gameObject.SetActive(true);
+            _isShow = true;
+            gameObject.SetActive(_isShow);
         }
-        
+
+        public bool IsShown() => _isShow;
     }
 }

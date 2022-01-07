@@ -8,7 +8,9 @@ using CasualHole.Game.UI.Interface;
 using CasualHole.Game.UI.Score.Interface;
 using CasualHole.GameControl;
 using CasualHole.Services;
+using CasualHole.Setting.Interface;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using Zenject;
 
@@ -19,11 +21,9 @@ namespace CasualHole.Game.GameProcess
         private IAudioService _audioService;
         private IUIGameService _uiGameService;
         private IScoreService _scoreService;
+        private ISettingService _settingService;
 
         private AudioGameContext _audioGameContext;
-
-        private IUIGameManager _uiGameManager;
-
 
         private ICameraBehaviour _cameraBehaviour;
 
@@ -33,10 +33,10 @@ namespace CasualHole.Game.GameProcess
         [Inject]
         private void Construct(
             IAudioService audioService,
-            IUIGameManager uiGameManager,
             IUIGameService uiGameService,
             IScoreService scoreService,
             ICameraBehaviour cameraBehaviour,
+            ISettingService settingService,
             GameProcessState gameProcessState,
             AudioGameContext audioGameContext,
             TouchActions touchActions)
@@ -47,16 +47,16 @@ namespace CasualHole.Game.GameProcess
             _touchActions = touchActions;
             _gameProcessState = gameProcessState;
 
-            _uiGameManager = uiGameManager;
-
             _uiGameService = uiGameService;
             _scoreService = scoreService;
             _cameraBehaviour = cameraBehaviour;
 
+            _settingService = settingService;
+
             _scoreService.Initialize();
             _uiGameService.Initialize();
             _audioService.Initialize();
-
+            _settingService.Initialize();
 
             Initialize();
         }
@@ -81,6 +81,10 @@ namespace CasualHole.Game.GameProcess
             _audioService.PlayMusic2D(_audioGameContext.BackgroundMusic, true);
 
             var timer = new CompositeDisposable();
+
+            this.UpdateAsObservable()
+                .Where(_ => Input.GetKeyDown(KeyCode.Escape))
+                .Subscribe(_ => OnPressBackButton());
 
             Observable
                 .Timer(TimeSpan.FromSeconds(1))
@@ -146,11 +150,10 @@ namespace CasualHole.Game.GameProcess
             _audioService.PlayNotification2D(_audioGameContext.WinSound);
             GameProcessPause(true);
             _touchActions.IsActive = false;
-            
-              yield return new WaitForSeconds(_audioGameContext.WinSound.length / 2);
+
+            yield return new WaitForSeconds(_audioGameContext.WinSound.length / 2);
             _uiGameService.WinWindow.Show();
             SetPause(true);
-            
         }
 
         public IEnumerator OnGameLose()
@@ -158,19 +161,36 @@ namespace CasualHole.Game.GameProcess
             _audioService.PlayNotification2D(_audioGameContext.LoseSound);
             _touchActions.IsActive = false;
             GameProcessPause(true);
-            
+
             yield return new WaitForSeconds(_audioGameContext.LoseSound.length / 2);
-            
+
             _uiGameService.LoseWindow.Show();
             SetPause(true);
         }
-        
 
-        public void SetPause(bool status) =>  Time.timeScale = status ? 0 : 1;
+
+        public void SetPause(bool status) => Time.timeScale = status ? 0 : 1;
+
         public void GameProcessPause(bool paused)
         {
             _gameProcessState.GamePaused = paused;
             _touchActions.IsActive = !paused;
+        }
+
+
+        private void OnPressBackButton()
+        {
+            // TODO: add to this behaviour if game ended
+            if (!_uiGameService.GameMenuWindow.IsShown())
+            {
+                _uiGameService.GameMenuWindow.Show();
+                SetPause(true);
+            }
+            else
+            {
+                SetPause(false);
+                _uiGameService.GameMenuWindow.Hide();
+            }
         }
     }
 }

@@ -4,5 +4,6 @@ namespace CasualHole.Game.UI.Interface
     {
         void Hide();
         void Show();
+        bool IsShown();
     }
 }

@@ -9,8 +9,6 @@ namespace CasualHole.Game.UI.Installer
     public class UIInstaller : MonoInstaller
     {
         [SerializeField] private UIGameContext _uiGameContext;
-        [SerializeField] private UIGameManager _uiGameManager;
-        [SerializeField] private UIAnimatorController _uiAnimatorController;
 
         private UIGameService _uiGameService;
         [SerializeField] private ScoreService _scoreService;
@@ -23,8 +21,6 @@ namespace CasualHole.Game.UI.Installer
             Container.Bind<IUIGameService>().FromInstance(_uiGameService).AsSingle().NonLazy();
 
             Container.Bind<UIGameContext>().FromInstance(_uiGameContext).AsSingle().NonLazy();
-            Container.Bind<IUIGameManager>().FromInstance(_uiGameManager).AsSingle().NonLazy();
-            Container.Bind<UIAnimatorController>().FromInstance(_uiAnimatorController).AsSingle().NonLazy();
         }
     }
 }

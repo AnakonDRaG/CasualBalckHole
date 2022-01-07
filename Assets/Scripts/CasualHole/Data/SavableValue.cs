@@ -32,13 +32,13 @@ namespace CasualHole.Data
             {
                 _value = value;
                 SaveValuesToPreferences();
-                OnChange?.Invoke();
+                OnChange?.Invoke(_value);
             }
         }
 
         public T DefaultValue { get; }
 
-        public Action OnChange { get; set; }
+        public Action<T> OnChange { get; set; }
 
 
         public void RollbackToDefaultValue()
