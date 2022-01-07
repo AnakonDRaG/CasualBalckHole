@@ -18,6 +18,10 @@ namespace CasualHole.Setting.Services
         {
             base.Initialize();
             _context.Initialize();
+            
+            _audioService.SetMusicVolume(_context.MusicValue.Value);
+            _audioService.SetSoundVolume(_context.SoundValue.Value);
+            
 
             _context.MusicValue.OnChange += _audioService.SetMusicVolume;
             _context.SoundValue.OnChange += _audioService.SetSoundVolume;

@@ -31,7 +31,6 @@ namespace CasualHole.Data
             set
             {
                 _value = value;
-                SaveValuesToPreferences();
                 OnChange?.Invoke(_value);
             }
         }

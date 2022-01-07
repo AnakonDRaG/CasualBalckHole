@@ -188,8 +188,8 @@ namespace CasualHole.Game.GameProcess
             }
             else
             {
-                SetPause(false);
                 _uiGameService.GameMenuWindow.Hide();
+                SetPause(false);
             }
         }
     }

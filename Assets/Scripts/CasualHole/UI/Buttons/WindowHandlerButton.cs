@@ -10,9 +10,15 @@ namespace CasualHole.UI.Buttons
         protected override void OnButtonClick()
         {
             if (!_window.IsShown())
+            {
                 _window.Show();
+                Time.timeScale = 0;
+            }
             else
+            {
                 _window.Hide();
+                Time.timeScale = 1;
+            }
         }
     }
 }

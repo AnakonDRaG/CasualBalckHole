@@ -13,27 +13,19 @@ namespace CasualHole.UI.Slider
     {
         private UnityEngine.UI.Slider _slider;
 
-        private float _value = 0;
-
 
         public void Initialize(SavableValue<float> savableValue)
         {
             _slider = GetComponent<UnityEngine.UI.Slider>();
-
-            _value = savableValue.Value;
-            _slider.SetValueWithoutNotify(_value);
+            _slider.SetValueWithoutNotify(savableValue.Value);
 
             _slider
                 .onValueChanged
-                .AddListener(value => _value = value);
+                .AddListener(value => savableValue.Value = value);
 
             _slider
                 .OnPointerUpAsObservable()
-                .Subscribe(_ =>
-                {
-                    savableValue.Value = _value;
-                    Debug.Log(savableValue.Value);
-                });
+                .Subscribe(_  => savableValue.SaveValuesToPreferences());
         }
     }
 }
