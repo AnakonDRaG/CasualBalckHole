@@ -8,8 +8,6 @@ namespace CasualHole.Setting.Context
 {
     public class SettingContext : MonoBehaviour, IInitializable
     {
-        private const string _playerPrefsPath = "CasualHole/SavableValue/Audio";
-
         public SavableValue<float> MusicValue { get; private set; }
         public SavableValue<float> SoundValue { get; private set; }
 
@@ -22,8 +20,8 @@ namespace CasualHole.Setting.Context
 
         public void Initialize()
         {
-            MusicValue = new SavableValue<float>($"{_playerPrefsPath}/Music", 0.5f);
-            SoundValue = new SavableValue<float>($"{_playerPrefsPath}/Sound", 0.5f);
+            MusicValue = new SavableValue<float>("Audio/Music", 0.5f);
+            SoundValue = new SavableValue<float>("Audio/Sound", 0.5f);
 
             SliderMusic.Initialize(MusicValue);
             SliderSound.Initialize(SoundValue);

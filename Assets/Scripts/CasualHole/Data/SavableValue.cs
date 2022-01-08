@@ -15,7 +15,7 @@ namespace CasualHole.Data
             if (string.IsNullOrEmpty(playerPrefsPath))
                 throw new Exception("The path to player preferences is null or empty");
 
-            _playerPreferencesPath = playerPrefsPath;
+            _playerPreferencesPath = $"CasualHole/SavableValues/{playerPrefsPath}";
 
             Value = defaultValue;
             DefaultValue = defaultValue;
@@ -69,7 +69,6 @@ namespace CasualHole.Data
             var bytes = Convert.FromBase64String(stringToDeserialize);
 
             using var memoryStream = new MemoryStream(bytes);
-
             var binaryFormatter = new BinaryFormatter();
             Value = (T) binaryFormatter.Deserialize(memoryStream);
         }

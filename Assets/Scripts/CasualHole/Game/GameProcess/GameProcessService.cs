@@ -7,11 +7,13 @@ using CasualHole.Game.Services;
 using CasualHole.Game.UI.Interface;
 using CasualHole.Game.UI.Score.Interface;
 using CasualHole.GameControl;
+using CasualHole.Levels.Interface;
 using CasualHole.Services;
 using CasualHole.Setting.Interface;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace CasualHole.Game.GameProcess
@@ -22,6 +24,7 @@ namespace CasualHole.Game.GameProcess
         private IUIGameService _uiGameService;
         private IScoreService _scoreService;
         private ISettingService _settingService;
+        private ILevelService _levelService;
 
         private AudioGameContext _audioGameContext;
 
@@ -37,6 +40,7 @@ namespace CasualHole.Game.GameProcess
             IScoreService scoreService,
             ICameraBehaviour cameraBehaviour,
             ISettingService settingService,
+            ILevelService levelService,
             GameProcessState gameProcessState,
             AudioGameContext audioGameContext,
             TouchActions touchActions)
@@ -52,11 +56,13 @@ namespace CasualHole.Game.GameProcess
             _cameraBehaviour = cameraBehaviour;
 
             _settingService = settingService;
+            _levelService = levelService;
 
             _scoreService.Initialize();
             _uiGameService.Initialize();
             _audioService.Initialize();
             _settingService.Initialize();
+            _levelService.Initialize();
 
             Initialize();
         }
@@ -151,6 +157,8 @@ namespace CasualHole.Game.GameProcess
             GameProcessPause(true);
             _touchActions.IsActive = false;
 
+            _levelService.SetLevelAsCompleted(SceneManager.GetActiveScene().name);
+
             yield return new WaitForSeconds(_audioGameContext.WinSound.length / 2);
             _uiGameService.WinWindow.Show();
             SetPause(true);
@@ -185,11 +193,13 @@ namespace CasualHole.Game.GameProcess
             {
                 _uiGameService.GameMenuWindow.Show();
                 SetPause(true);
+                GameProcessPause(true);
             }
             else
             {
                 _uiGameService.GameMenuWindow.Hide();
                 SetPause(false);
+                GameProcessPause(false);
             }
         }
     }

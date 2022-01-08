@@ -1,3 +1,5 @@
+using CasualHole.Levels.Interface;
+using CasualHole.Levels.Service;
 using UnityEngine;
 using Zenject;
 
@@ -9,7 +11,7 @@ namespace CasualHole.Levels.Installer
         [SerializeField] private LevelService _levelService;
         public override void InstallBindings()
         {
-            Container.Bind<LevelService>().FromInstance(_levelService).AsSingle().NonLazy();
+            Container.Bind<ILevelService>().FromInstance(_levelService).AsSingle().NonLazy();
         }
     }
 }
