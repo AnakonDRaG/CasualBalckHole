@@ -263,6 +263,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3452905054313861482}
   - component: {fileID: 3452905054313861483}
+  - component: {fileID: 1815340123084511423}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -277,13 +278,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3452905054313861492}
-  m_LocalRotation: {x: 0.30783775, y: -0.12544642, z: 0.15886678, w: 0.92965615}
+  m_LocalRotation: {x: 0.86602545, y: 0, z: 0, w: 0.49999994}
   m_LocalPosition: {x: 0.42013884, y: 11.637532, z: -6.7354927}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4745385732691677007}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 37.751, y: -9.863, z: 16.016}
+  m_LocalEulerAnglesHint: {x: 120, y: 0, z: 0}
 --- !u!108 &3452905054313861483
 Light:
   m_ObjectHideFlags: 0
@@ -302,13 +303,13 @@ Light:
   m_InnerSpotAngle: 21.802082
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
+    m_Type: 2
+    m_Resolution: 128
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0.02
-    m_NormalBias: 0.1
-    m_NearPlane: 1.2
+    m_Bias: 1
+    m_NormalBias: 1
+    m_NearPlane: 0.4
     m_CullingMatrixOverride:
       e00: 1
       e01: 0
@@ -335,17 +336,31 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 3.0956e-41, y: 7.862417e-15, z: 3.0956e-41, w: 9.403955e-38}
+  m_BoundingSphereOverride: {x: 0, y: 5.6e-44, z: 4.2067e-41, w: 1.6114932e-38}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1815340123084511423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3452905054313861492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
 --- !u!1 &3452905054803393340
 GameObject:
   m_ObjectHideFlags: 0
@@ -634,17 +649,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40943e0776544a4d8b3d5362f2d7162d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6783244652268748943 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5702693036018883600, guid: 316115f6565a3511d997763a1e59e938, type: 3}
-  m_PrefabInstance: {fileID: 1226918672890846367}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 156c96589832432e8d628dc196c16361, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &190618873514446019 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1415206512990851164, guid: 316115f6565a3511d997763a1e59e938, type: 3}
@@ -665,6 +669,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 029014f788c344688b320dac69eb574c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6783244652268748943 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5702693036018883600, guid: 316115f6565a3511d997763a1e59e938, type: 3}
+  m_PrefabInstance: {fileID: 1226918672890846367}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 156c96589832432e8d628dc196c16361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2242895062232947111 stripped
@@ -1234,6 +1249,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 757923748107125700, guid: df1c6a7de78c02237a0540d8e436ada7, type: 3}
       propertyPath: m_FOVAxisMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 757923748107125700, guid: df1c6a7de78c02237a0540d8e436ada7, type: 3}
+      propertyPath: m_AllowDynamicResolution
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 757923748107125701, guid: df1c6a7de78c02237a0540d8e436ada7, type: 3}

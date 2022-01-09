@@ -1,4 +1,4 @@
-Shader "Custom/Gradient Color" {
+Shader "AnakonShader/Gradient Color (Two colors)" {
      Properties {
          [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
          _ColorTop ("Top Color", Color) = (1,1,1,1)
