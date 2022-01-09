@@ -1,12 +1,11 @@
-using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using CasualHole.Data;
-using CasualHole.Levels.Interface;
 using CasualHole.Levels.Models;
 using CasualHole.Services;
-using UnityEditor;
 using UnityEngine;
+using Application = UnityEngine.Application;
 
 namespace CasualHole.Levels.Service
 {
@@ -14,11 +13,13 @@ namespace CasualHole.Levels.Service
     {
         [SerializeField] private LevelPickerContent _levelPickerContent;
 
+
         private SavableValue<IList<LevelModel>> _levelsSavableValue;
 
         public override void Initialize()
         {
             base.Initialize();
+
 
             _levelsSavableValue = new SavableValue<IList<LevelModel>>("Levels", new List<LevelModel>()
             {
@@ -30,7 +31,7 @@ namespace CasualHole.Levels.Service
             });
 
             PreInitLevels();
-            
+
             _levelPickerContent.Initialize(_levelsSavableValue.Value);
         }
 
@@ -41,17 +42,10 @@ namespace CasualHole.Levels.Service
 
         private void PreInitLevels()
         {
-            var levelScenes = EditorBuildSettings.scenes
-                .Where(scene => scene.enabled)
-                .Select(scene => scene.path)
-                .Where(level => level.Contains("Levels/"))
-                .Select(level =>
-                {
-                    var _level = level.Substring(level.LastIndexOf('/') + 1);
-                    _level = _level.Substring(0, _level.Length - 6);
-                    return _level;
-                })
-                .ToArray();
+            var directoryInfo = new DirectoryInfo($"{Application.dataPath}/Scenes/Levels/");
+            var allFileInfos = directoryInfo.GetFiles("*.unity", SearchOption.AllDirectories);
+
+            var levelScenes = allFileInfos.Select(levels => levels.Name.Split('.')[0]).ToArray();
 
             if (_levelsSavableValue.Value.Count <= 1 ||
                 _levelsSavableValue.Value.Count < levelScenes.Length)
