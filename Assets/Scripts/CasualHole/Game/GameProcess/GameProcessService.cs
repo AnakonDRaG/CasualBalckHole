@@ -156,30 +156,23 @@ namespace CasualHole.Game.GameProcess
         {
             _audioService.PlayNotification2D(_audioGameContext.WinSound);
             GameProcessPause(true);
-            _touchActions.IsActive = false;
 
             _levelService.SetLevelAsCompleted(SceneManager.GetActiveScene().name);
 
             yield return new WaitForSeconds(_audioGameContext.WinSound.length / 2);
             _uiGameService.WinWindow.Show();
-            SetPause(true);
         }
 
         public IEnumerator OnGameLose()
         {
             _audioService.PlayNotification2D(_audioGameContext.LoseSound);
-            _touchActions.IsActive = false;
             GameProcessPause(true);
 
             yield return new WaitForSeconds(_audioGameContext.LoseSound.length / 2);
 
             _uiGameService.LoseWindow.Show();
-            SetPause(true);
         }
-
-
-        public void SetPause(bool status) => Time.timeScale = status ? 0 : 1;
-
+        
         public void GameProcessPause(bool paused)
         {
             _gameProcessState.GamePaused = paused;

@@ -10,6 +10,5 @@ namespace CasualHole.Game.Services
         IEnumerator OnGameWin();
         IEnumerator OnGameLose();
         void GameProcessPause(bool paused);
-        void SetPause(bool status);
     }
 }
