@@ -1,18 +1,16 @@
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using CasualHole.Data;
 using CasualHole.Levels.Models;
 using CasualHole.Services;
+using UnityEditor;
 using UnityEngine;
-using Application = UnityEngine.Application;
 
 namespace CasualHole.Levels.Service
 {
     public class LevelPickerService : BaseBehaviourService
     {
         [SerializeField] private LevelPickerContent _levelPickerContent;
-
+        [SerializeField] private List<string> _levels;
 
         private SavableValue<IList<LevelModel>> _levelsSavableValue;
 
@@ -26,7 +24,8 @@ namespace CasualHole.Levels.Service
                 new LevelModel()
                 {
                     Id = "1",
-                    IsActive = true
+                    SceneName = _levels[0],
+                    IsActive = true,
                 }
             });
 
@@ -42,20 +41,21 @@ namespace CasualHole.Levels.Service
 
         private void PreInitLevels()
         {
-            var directoryInfo = new DirectoryInfo($"{Application.dataPath}/Scenes/Levels/");
-            var allFileInfos = directoryInfo.GetFiles("*.unity", SearchOption.AllDirectories);
-
-            var levelScenes = allFileInfos.Select(levels => levels.Name.Split('.')[0]).ToArray();
-
             if (_levelsSavableValue.Value.Count <= 1 ||
-                _levelsSavableValue.Value.Count < levelScenes.Length)
+                _levelsSavableValue.Value.Count < _levels.Count)
             {
-                for (int i = 1; i < levelScenes.Length; i++)
+                for (int i = 0; i < _levels.Count; i++)
                 {
-                    var _level = new LevelModel() {Id = levelScenes[i], IsActive = false};
-                    _levelsSavableValue.Value[i - 1].NextLevel = _level;
+                    var _level = new LevelModel()
+                    {
+                        Id = (i + 1).ToString(),
+                        SceneName = _levels[i],
+                        IsActive = false
+                    };
 
+                    if (i == 0) continue;
                     _levelsSavableValue.Value.Add(_level);
+                    _levelsSavableValue.Value[i - 1].NextLevel = _level;
                 }
 
                 _levelsSavableValue.SaveValuesToPreferences();

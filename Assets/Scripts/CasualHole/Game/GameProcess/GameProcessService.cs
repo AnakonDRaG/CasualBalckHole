@@ -94,6 +94,7 @@ namespace CasualHole.Game.GameProcess
 
             Observable
                 .Timer(TimeSpan.FromSeconds(1))
+                .Where(_ => !_gameProcessState.GamePaused)
                 .Repeat()
                 .Subscribe(_ =>
                 {
@@ -182,24 +183,20 @@ namespace CasualHole.Game.GameProcess
         public void GameProcessPause(bool paused)
         {
             _gameProcessState.GamePaused = paused;
-            _touchActions.IsActive = !paused;
         }
 
 
-        private void OnPressBackButton()
+        public void OnPressBackButton()
         {
-            // TODO: add to this behaviour if game ended
             if (!_uiGameService.GameMenuWindow.IsShown())
             {
-                _uiGameService.GameMenuWindow.Show();
-                SetPause(true);
                 GameProcessPause(true);
+                _uiGameService.GameMenuWindow.Show();
             }
             else
             {
-                _uiGameService.GameMenuWindow.Hide();
-                SetPause(false);
                 GameProcessPause(false);
+                _uiGameService.GameMenuWindow.Hide();
             }
         }
     }

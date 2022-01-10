@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using CasualHole.Game.GameProcess;
 using CasualHole.Game.Hole.Context;
@@ -39,7 +40,7 @@ namespace CasualHole.Game.Hole
             InitVerticesFromMesh();
 
             this.UpdateAsObservable()
-                .Where(_ => touchPhase.IsActive && Input.touches.Length > 0)
+                .Where(_ => !_gameProcessState.GamePaused)
                 .Select(_ => touchPhase.TouchPosition)
                 .Subscribe(OnHolePointUpdate);
 
@@ -81,8 +82,14 @@ namespace CasualHole.Game.Hole
             _holeBehaviourModel.UI_Circle.localScale *= _holeBehaviourModel.HoleRadius;
         }
 
+        private void Update()
+        {
+            Debug.Log(_gameProcessState.GamePaused);
+        }
+
         private void OnHolePointUpdate(Vector2 deltaPosition)
         {
+          
             UpdateHolePoint(deltaPosition);
             UpdateVertices();
         }

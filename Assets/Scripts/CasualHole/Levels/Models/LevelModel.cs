@@ -6,6 +6,7 @@ namespace CasualHole.Levels.Models
     public class LevelModel
     {
         public string Id { get; set; }
+        public string SceneName { get; set; }
         public bool IsActive { get; set; }
 
         public LevelModel NextLevel { get; set; }

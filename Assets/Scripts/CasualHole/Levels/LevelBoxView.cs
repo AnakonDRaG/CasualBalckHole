@@ -29,7 +29,11 @@ namespace CasualHole.Levels
 
             _button.OnClickAsObservable()
                 .Where(_ => level.IsActive)
-                .Subscribe(_ => SceneManager.LoadScene(level.Id));
+                .Subscribe(_ =>
+                {
+                    Debug.Log(level.SceneName);
+                    SceneManager.LoadScene(level.SceneName);
+                });
         }
 
         public void SetActive(bool status)
