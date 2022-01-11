@@ -2,10 +2,10 @@ using System;
 using System.Collections.ObjectModel;
 using CasualHole.Game.GameProcess;
 using CasualHole.Game.Hole.Context;
+using CasualHole.Game.Hole.Interface;
 using CasualHole.Game.Services;
 using CasualHole.Game.TrashObjectsLogic;
 using CasualHole.GameControl;
-using Game.TrashObjectsLogic;
 using Game.TrashSceneObjects.Interfaces;
 using UniRx;
 using UniRx.Triggers;
@@ -14,12 +14,18 @@ using Zenject;
 
 namespace CasualHole.Game.Hole
 {
-    public class HoleBehaviour : MonoBehaviour
+    public class HoleBehaviour : MonoBehaviour, IHoleBehaviour
     {
         private HoleContext _holeModel;
         private HoleBehaviourContext _holeBehaviourModel;
+        
         private GameProcessState _gameProcessState;
-
+        private TouchActions _touchActions;
+        
+        public Action OnCollectScoreObject { get; set; }
+        public Action OnCollectTrashObject { get; set; }
+        
+        
         [Inject]
         private void Construct(
             IGameProcessService gameProcessService,
@@ -29,7 +35,12 @@ namespace CasualHole.Game.Hole
             _gameProcessState = gameProcessState;
 
             _holeBehaviourModel = GetComponent<HoleBehaviourContext>();
+            _touchActions = touchPhase;
 
+        }
+
+        public void Initialize()
+        {
             _holeModel = new HoleContext()
             {
                 RadiusToDetect = _holeBehaviourModel.HoleRadius + 1f,
@@ -41,7 +52,7 @@ namespace CasualHole.Game.Hole
 
             this.UpdateAsObservable()
                 .Where(_ => !_gameProcessState.GamePaused)
-                .Select(_ => touchPhase.TouchPosition)
+                .Select(_ => _touchActions.TouchPosition)
                 .Subscribe(OnHolePointUpdate);
 
             _holeBehaviourModel.Collector.OnTriggerEnterAsObservable()
@@ -49,18 +60,18 @@ namespace CasualHole.Game.Hole
                 .Select(obj => obj.GetComponent<ITrash>())
                 .Subscribe(trash =>
                 {
-                    gameProcessService.OnCollectScoreTrash();
+                    OnCollectScoreObject?.Invoke();
                     trash.DestroyGameObject();
                 });
 
             _holeBehaviourModel.Collector.OnTriggerEnterAsObservable()
                 .Where(obj => obj.GetComponent<ToxicTrashBehaviour>())
-                .Subscribe(_ => { gameProcessService.OnCollectToxicTrash(); });
+                .Subscribe(_ => { OnCollectTrashObject?.Invoke(); });
 
             _holeBehaviourModel.HolePoint.position = _holeBehaviourModel.StartPoint.position;
             UpdateVertices();
         }
-
+        
         private void InitVerticesFromMesh()
         {
             _holeModel.VerticlesIds = new Collection<int>();
@@ -82,14 +93,8 @@ namespace CasualHole.Game.Hole
             _holeBehaviourModel.UI_Circle.localScale *= _holeBehaviourModel.HoleRadius;
         }
 
-        private void Update()
-        {
-            Debug.Log(_gameProcessState.GamePaused);
-        }
-
         private void OnHolePointUpdate(Vector2 deltaPosition)
         {
-          
             UpdateHolePoint(deltaPosition);
             UpdateVertices();
         }
@@ -131,5 +136,6 @@ namespace CasualHole.Game.Hole
             _holeBehaviourModel.HolePlaceCollider.sharedMesh = _holeModel.Mesh;
             _holeBehaviourModel.HolePlaceMesh.mesh = _holeModel.Mesh;
         }
+        
     }
 }

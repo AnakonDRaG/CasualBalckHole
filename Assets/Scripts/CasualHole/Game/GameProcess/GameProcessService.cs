@@ -3,10 +3,10 @@ using System.Collections;
 using CasualHole.Audio.Context;
 using CasualHole.Audio.Services;
 using CasualHole.Game.Camera.Interface;
+using CasualHole.Game.Hole.Interface;
 using CasualHole.Game.Services;
 using CasualHole.Game.UI.Interface;
 using CasualHole.Game.UI.Score.Interface;
-using CasualHole.GameControl;
 using CasualHole.Levels.Interface;
 using CasualHole.Services;
 using CasualHole.Setting.Interface;
@@ -26,12 +26,13 @@ namespace CasualHole.Game.GameProcess
         private ISettingService _settingService;
         private ILevelService _levelService;
 
+        private IHoleBehaviour _holeBehaviour;
+        
         private AudioGameContext _audioGameContext;
 
         private ICameraBehaviour _cameraBehaviour;
 
         private GameProcessState _gameProcessState;
-        private TouchActions _touchActions;
 
         [Inject]
         private void Construct(
@@ -41,30 +42,35 @@ namespace CasualHole.Game.GameProcess
             ICameraBehaviour cameraBehaviour,
             ISettingService settingService,
             ILevelService levelService,
+            IHoleBehaviour holeBehaviour,
             GameProcessState gameProcessState,
-            AudioGameContext audioGameContext,
-            TouchActions touchActions)
+            AudioGameContext audioGameContext)
         {
             _audioService = audioService;
             _audioGameContext = audioGameContext;
-
-            _touchActions = touchActions;
             _gameProcessState = gameProcessState;
-
             _uiGameService = uiGameService;
             _scoreService = scoreService;
             _cameraBehaviour = cameraBehaviour;
-
             _settingService = settingService;
             _levelService = levelService;
+            _holeBehaviour = holeBehaviour;
+            
+            InitializeComponents();
+            Initialize();
+        }
 
+        private void InitializeComponents()
+        {
             _scoreService.Initialize();
             _uiGameService.Initialize();
             _audioService.Initialize();
             _settingService.Initialize();
             _levelService.Initialize();
-
-            Initialize();
+            
+            _holeBehaviour.Initialize();
+            _holeBehaviour.OnCollectScoreObject += OnCollectScoreTrash;
+            _holeBehaviour.OnCollectTrashObject += OnCollectToxicTrash;
         }
 
         public override void Initialize()
@@ -135,7 +141,7 @@ namespace CasualHole.Game.GameProcess
         }
 
 
-        public void OnCollectScoreTrash()
+        private void OnCollectScoreTrash()
         {
             if (_gameProcessState.GamePaused) return;
 
@@ -143,7 +149,7 @@ namespace CasualHole.Game.GameProcess
             _gameProcessState.CurrentScore.SetValueAndForceNotify(_gameProcessState.CurrentScore.Value + 1);
         }
 
-        public void OnCollectToxicTrash()
+        private void OnCollectToxicTrash()
         {
             if (_gameProcessState.GamePaused) return;
 
