@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1067992298974448069}
   - component: {fileID: 1907828516334696728}
   - component: {fileID: 341683243176603428}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ToxicTrash
   m_TagString: TrashObjectToxic
   m_Icon: {fileID: 0}

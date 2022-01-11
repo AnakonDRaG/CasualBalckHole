@@ -5,7 +5,7 @@ namespace CasualHole.Game.Hole.Context
 {
     public class HoleContext
     {
-        private const float _holeMovementSpeed = 2;
+        private const float _holeMovementSpeed = 2.8f;
 
         public Collection<int> VerticlesIds { get; set; }
         public Collection<Vector3> VerticesOffsets { get; set; }

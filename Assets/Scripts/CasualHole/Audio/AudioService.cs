@@ -8,7 +8,6 @@ namespace CasualHole.Audio
     public class AudioService : BaseBehaviourService, IAudioService
     {
         private AudioSource _music;
-        private AudioSource _notification;
         private AudioSource _audioSource;
 
         public override void Initialize()
@@ -16,7 +15,6 @@ namespace CasualHole.Audio
             base.Initialize();
 
             _music = gameObject.AddComponent<AudioSource>();
-            _notification = gameObject.AddComponent<AudioSource>();
             _audioSource = gameObject.AddComponent<AudioSource>();
 
             _music.volume = 0.1f;
@@ -44,18 +42,6 @@ namespace CasualHole.Audio
         {
             _music.volume = volume;
         }
-
-        public void PlayNotification2D(AudioClip notificationSound)
-        {
-            if (_notification.isPlaying) _notification.Stop();
-
-            _notification.clip = notificationSound;
-            _notification.Play();
-        }
-
-        public void SetNotificationVolume(float volume)
-        {
-            _notification.volume = volume;
-        }
+        
     }
 }

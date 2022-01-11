@@ -10,7 +10,5 @@ namespace CasualHole.Audio.Services
 
         void PlayMusic2D(AudioClip music, bool loop = false);
         void SetMusicVolume(float volume);
-        void PlayNotification2D(AudioClip notificationSound);
-        void SetNotificationVolume(float volume);
     }
 }

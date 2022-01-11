@@ -76,6 +76,7 @@ namespace CasualHole.Game.GameProcess
         public override void Initialize()
         {
             base.Initialize();
+            Time.timeScale = 1;
             _gameProcessState.InitGameState();
             _gameProcessState.CurrentTimerScore
                 .Subscribe(time => _scoreService.Timer.SetTime(time));
@@ -160,7 +161,7 @@ namespace CasualHole.Game.GameProcess
 
         public IEnumerator OnGameWin()
         {
-            _audioService.PlayNotification2D(_audioGameContext.WinSound);
+            _audioService.PlaySound2D(_audioGameContext.WinSound);
             GameProcessPause(true);
 
             _levelService.SetLevelAsCompleted(SceneManager.GetActiveScene().name);
@@ -171,7 +172,7 @@ namespace CasualHole.Game.GameProcess
 
         public IEnumerator OnGameLose()
         {
-            _audioService.PlayNotification2D(_audioGameContext.LoseSound);
+            _audioService.PlaySound2D(_audioGameContext.LoseSound);
             GameProcessPause(true);
 
             yield return new WaitForSeconds(_audioGameContext.LoseSound.length / 2);
