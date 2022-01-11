@@ -4944,7 +4944,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6122910842358457938, guid: ca9ebfde87de59847b0e24f6482b1461, type: 3}
       propertyPath: maxTimePerLevel
-      value: 32
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 6142606440465134653, guid: ca9ebfde87de59847b0e24f6482b1461, type: 3}
       propertyPath: m_AnchorMax.y
