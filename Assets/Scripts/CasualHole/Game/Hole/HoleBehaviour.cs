@@ -18,14 +18,14 @@ namespace CasualHole.Game.Hole
     {
         private HoleContext _holeModel;
         private HoleBehaviourContext _holeBehaviourModel;
-        
+
         private GameProcessState _gameProcessState;
         private TouchActions _touchActions;
-        
+
         public Action OnCollectScoreObject { get; set; }
         public Action OnCollectTrashObject { get; set; }
-        
-        
+
+
         [Inject]
         private void Construct(
             IGameProcessService gameProcessService,
@@ -36,7 +36,6 @@ namespace CasualHole.Game.Hole
 
             _holeBehaviourModel = GetComponent<HoleBehaviourContext>();
             _touchActions = touchPhase;
-
         }
 
         public void Initialize()
@@ -71,7 +70,7 @@ namespace CasualHole.Game.Hole
             _holeBehaviourModel.HolePoint.position = _holeBehaviourModel.StartPoint.position;
             UpdateVertices();
         }
-        
+
         private void InitVerticesFromMesh()
         {
             _holeModel.VerticlesIds = new Collection<int>();
@@ -110,14 +109,15 @@ namespace CasualHole.Game.Hole
             var pointFirst = _holeBehaviourModel.MoveLimitsSecondPoint.position;
             var positionSecond = _holeBehaviourModel.MoveLimitsFirstPoint.position;
 
+
             _holeBehaviourModel.HolePoint.position = new Vector3(
                 Mathf.Clamp(touch.x,
-                    positionSecond.x + _holeModel.HolePerfectRadius + 0.5f,
-                    pointFirst.x - _holeModel.HolePerfectRadius - 0.5f),
+                    -5,
+                    5),
                 touch.y,
                 Mathf.Clamp(touch.z,
-                    pointFirst.z + _holeModel.HolePerfectRadius + 0.5f,
-                    positionSecond.z - _holeModel.HolePerfectRadius - 0.5f)
+                    -1,
+                    1)
             );
         }
 
@@ -136,6 +136,5 @@ namespace CasualHole.Game.Hole
             _holeBehaviourModel.HolePlaceCollider.sharedMesh = _holeModel.Mesh;
             _holeBehaviourModel.HolePlaceMesh.mesh = _holeModel.Mesh;
         }
-        
     }
 }

@@ -3,7 +3,7 @@ Shader "AnakonShader/Outline_Beta"
     Properties
     {
         _OutlineColor ("Outline color", Color) = (0,0,0,1)
-        _OutlineWidth ("Outlines width", Range (0.0, 2.0)) = 1.1
+        _OutlineWidth ("Outlines width", Range (-2.0, 2.0)) = 1.1
         _OutlineX("X", Range (-2.0, 2.0)) = 0
         _OutlineY("Y", Range (-2.0, 2.0)) = 0
         _OutlineZ("Z", Range (-2.0, 2.0)) = 0
