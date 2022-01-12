@@ -112,12 +112,12 @@ namespace CasualHole.Game.Hole
 
             _holeBehaviourModel.HolePoint.position = new Vector3(
                 Mathf.Clamp(touch.x,
-                    -5,
-                    5),
+                    -pointFirst.x + _holeModel.HolePerfectRadius,
+                    pointFirst.x - _holeModel.HolePerfectRadius),
                 touch.y,
                 Mathf.Clamp(touch.z,
-                    -1,
-                    1)
+                    positionSecond.z + _holeModel.HolePerfectRadius,
+                    -positionSecond.z - _holeModel.HolePerfectRadius)
             );
         }
 
