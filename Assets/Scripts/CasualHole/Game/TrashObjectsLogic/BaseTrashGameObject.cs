@@ -34,9 +34,9 @@ namespace CasualHole.Game.TrashObjectsLogic
 
 
             transform.localScale = new Vector3(
-                Mathf.Clamp(Mathf.Pow(distanceMath, 3), _context.MinScale, _context.OriginalLocalScale.x),
-                Mathf.Clamp(Mathf.Pow(distanceMath, 3), _context.MinScale, _context.OriginalLocalScale.y),
-                Mathf.Clamp(Mathf.Pow(distanceMath, 3), _context.MinScale, _context.OriginalLocalScale.z));
+                Mathf.Clamp(Mathf.Pow(distanceMath, 2), _context.MinScale, _context.OriginalLocalScale.x),
+                Mathf.Clamp(Mathf.Pow(distanceMath, 2), _context.MinScale, _context.OriginalLocalScale.y),
+                Mathf.Clamp(Mathf.Pow(distanceMath, 2), _context.MinScale, _context.OriginalLocalScale.z));
         }
 
         public virtual void DestroyGameObject()
